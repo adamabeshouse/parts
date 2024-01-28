@@ -1,0 +1,28 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 20px);
+    overflow-y: scroll;
+}
+
+.message {
+    display: inline;
+    padding: 5px 14px;
+    border-radius: 7px;
+    font-family: sans-serif;
+    border-width: 1px;
+    border-style: solid;
+    margin-bottom: 12px;
+}
+
+.message.message-you {
+    background: #d5ccff;
+    align-self: flex-end;
+    border-color: #a18dff;
+}
+
+.message.message-them {
+    background: #faffcc;
+    align-self: flex-start;
+    border-color: #e8ff17;
+}
