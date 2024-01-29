@@ -34,6 +34,30 @@ function saveMessages() {
 }
 
 // ~ Event handlers ~
+function resetMessages() {
+    if (confirm("Are you sure you want to reset messages? This cannot be undone. If you want to save your transcript before clearing, use 'Copy chat'")) {
+        localStorage.removeItem("savedMessages");
+        document.getElementsByClassName('messages-container')[0].innerHTML = "";
+    }
+}
+
+function copyMessages() {
+    let transcript = "";
+    const messages = document.getElementsByClassName("message");
+    for (let i=0; i<messages.length; i++) {
+        if (messages[i].classList.contains("message-you")) {
+            transcript += "A: ";
+        } else {
+            transcript += "B: ";
+        }
+        transcript += messages[i].innerHTML;
+        transcript += "\n";
+    }
+    navigator.clipboard.writeText(transcript).then(()=>{
+        alert("Chat saved to clipboard - you can now paste it into another app.");
+    });
+}
+
 function onSendMessage() {
     const text = document.getElementById("input").value;
     if (!text.length) return;
