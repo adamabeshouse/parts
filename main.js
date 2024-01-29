@@ -55,15 +55,20 @@ function switchSpeaker() {
     saveMessages();
 }
 
-function onClickHeader(event) {
+function showMenu(event) {
     event.stopPropagation();
-    document.getElementsByClassName("header-container")[0].classList.add("header-container-focused");
+    document.getElementsByClassName('menu-container')[0].classList.add("menu-container-shown");
+    document.getElementsByClassName('app-container')[0].classList.add("menu-container-shown");
 }
-document.getElementsByClassName("header-container")[0].addEventListener("click", onClickHeader);
+document.getElementsByClassName('menu-btn')[0].addEventListener('click', showMenu);
+// Prevent hiding menu when clicking on it
+document.getElementsByClassName('menu-container')[0].addEventListener('click', event=>event.stopPropagation());
 
-function onClickOutsideHeader() {
-    document.getElementsByClassName("header-container")[0].classList.remove("header-container-focused");
+function hideMenu() {
+    document.getElementsByClassName('menu-container')[0].classList.remove("menu-container-shown");
+    document.getElementsByClassName('app-container')[0].classList.remove("menu-container-shown");
 }
+document.addEventListener('click', hideMenu);
 
 // ~ Execute on page load ~
 
