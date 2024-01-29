@@ -41,7 +41,7 @@ function resetMessages() {
     }
 }
 
-function copyMessages() {
+async function copyMessages() {
     let transcript = "";
     const messages = document.getElementsByClassName("message");
     for (let i=0; i<messages.length; i++) {
@@ -53,7 +53,11 @@ function copyMessages() {
         transcript += messages[i].innerHTML;
         transcript += "\n";
     }
-    navigator.clipboard.writeText(transcript).then(()=>{
+
+    // writeText seems to be broken in iOS Safari, copied text comes out URI encoded (???)
+    const blob = new Blob([transcript], {type: "text/plain"});
+    const data = [new ClipboardItem({"text/plain": blob})];
+    await navigator.clipboard.write(data).then(()=>{
         alert("Chat saved to clipboard - you can now paste it into another app.");
     });
 }
