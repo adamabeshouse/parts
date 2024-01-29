@@ -41,7 +41,7 @@ function resetMessages() {
     }
 }
 
-async function copyMessages() {
+function copyMessages() {
     let transcript = "";
     const messages = document.getElementsByClassName("message");
     for (let i=0; i<messages.length; i++) {
@@ -54,12 +54,10 @@ async function copyMessages() {
         transcript += "\n";
     }
 
-    // writeText seems to be broken in iOS Safari, copied text comes out URI encoded (???)
-    const blob = new Blob([transcript], {type: "text/plain"});
-    const data = [new ClipboardItem({"text/plain": blob})];
-    await navigator.clipboard.write(data).then(()=>{
-        alert("Chat saved to clipboard - you can now paste it into another app.");
-    });
+    // copying to clipboard seems to be broken in iOS Safari, copied text comes out URI encoded
+
+    document.getElementsByClassName("menu-container")[0].classList.add("copy-messages-box-shown");
+    document.getElementsByClassName("menu-copy-messages-box")[0].innerHTML = transcript;
 }
 
 function onSendMessage() {
@@ -95,6 +93,7 @@ document.getElementsByClassName('menu-container')[0].addEventListener('click', e
 function hideMenu() {
     document.getElementsByClassName('menu-container')[0].classList.remove("menu-container-shown");
     document.getElementsByClassName('app-container')[0].classList.remove("menu-container-shown");
+    document.getElementsByClassName("menu-container")[0].classList.remove("copy-messages-box-shown");
 }
 document.addEventListener('click', hideMenu);
 
